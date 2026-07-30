@@ -1,0 +1,22 @@
+.top-pane {
+    -fx-background-color: #87b5ff;
+    -fx-padding: 5px;
+}
+.player {
+    -fx-fill: green;
+}
+.enemy {
+    -fx-fill: red;
+}
+.game-over, .pause {
+    -fx-background-color: rgba(0, 0, 0, 0.65);
+    -fx-padding: 30px;
+}
+.game-over .label {
+    -fx-font-size: 40;
+    -fx-text-fill: white;
+}
+.pause .label {
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+}

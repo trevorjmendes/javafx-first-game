@@ -1,0 +1,14 @@
+.top-stack {
+    -fx-padding: 120 0 0 0;
+}
+
+.center-stack {
+    -fx-padding: 0 0 100 0;
+}
+
+.top-stack .label {
+    -fx-font-size: 40px;
+}
+/*
+.center-stack .button {
+}*/

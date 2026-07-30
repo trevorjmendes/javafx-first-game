@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" stylesheets="@gamestyle.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trevor.game.javafxfirstgame.GameController">
+   <BorderPane>
+      <center>
+         <Pane fx:id="gamePane" BorderPane.alignment="CENTER" />
+      </center>
+      <top>
+         <Pane prefHeight="46.0" styleClass="top-pane" BorderPane.alignment="TOP_CENTER">
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="800.0" spacing="10" BorderPane.alignment="CENTER">
+               <Label fx:id="scoreLabel" text="Score: 0" />
+               <Label fx:id="clicksLabel" text="Clicks Left: " />
+               <Button mnemonicParsing="false" onAction="#exitToMenu" text="Exit" />
+               <Button onAction="#pause" text="Pause" />
+            </HBox>
+         </Pane>
+      </top>
+   </BorderPane>
+   <StackPane fx:id="overlayLayer" mouseTransparent="true">
+      <VBox fx:id="gameOverPane" alignment="CENTER" spacing="20" styleClass="game-over" visible="false">
+         <Label styleClass="game-over-label" text="Game Over" />
+         <Label fx:id="finalScoreLabel" text="Score: 0" />
+         <Button onAction="#restart" text="Restart" />
+         <Button onAction="#exitToMenu" text="Exit" />
+      </VBox>
+      <VBox fx:id="pausePane" alignment="CENTER" spacing="20" styleClass="pause" visible="false">
+         <Label text="Paused" />
+         <Button onAction="#resume" text="Resume" />
+         <Button onAction="#restart" text="Restart" />
+         <Button onAction="#exitToMenu" text="Exit" />
+      </VBox>
+      <VBox fx:id="winPane" alignment="CENTER" spacing="20" styleClass="win" visible="false">
+         <Label text="You Win!!"/>
+         <Label fx:id="winScoreLabel" text="Score: 0" />
+         <Button onAction="#restart" text="Restart" />
+         <Button onAction="#exitToMenu" text="Exit" />
+      </VBox>
+   </StackPane>
+</StackPane>
