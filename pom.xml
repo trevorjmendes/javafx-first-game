@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.trevor.game.javafxfirstgame/com.trevor.game.javafxfirstgame.main.Main
+                                com.trevor.game.javafxfirstgame/com.trevor.game.javafxfirstgame.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
