@@ -1,6 +1,5 @@
 package com.trevor.game.javafxfirstgame;
 
-//TODO: Make onGround field and logic
 public class Enemy extends GameObject {
     private final EnemyType TYPE;
 
@@ -55,7 +54,9 @@ public class Enemy extends GameObject {
     public void setGravityMult(double gravityMult) {
         this.gravityMult = gravityMult;
     }
-
+    public double getSpeed() {
+        return Math.hypot(getxVelocity(), getyVelocity());
+    }
 
 
 }
