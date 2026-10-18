@@ -4,21 +4,21 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-// TODO: Make x collisions reduce speed
 // TODO: FIX Y Velocity stuck around 10 when enemies on ground
 public class EnemyManager {
     private ArrayList<Enemy> enemies;
     private final Pane gamePane;
     private final WaveManager waveManager;
     private final GameWorld world;
-    public ArrayList<Enemy> getEnemies() {
-        return enemies;
-    }
+
     public EnemyManager(Pane gamePane, WaveManager waveManager, GameWorld world) {
         this.gamePane = gamePane;
         this.waveManager = waveManager;
         enemies = new ArrayList<>();
         this.world = world;
+    }
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 
     public Enemy createEnemy(EnemyData data) {
@@ -47,6 +47,7 @@ public class EnemyManager {
     }
 
     public void addEnemy(Enemy enemy) {
+        enemy.getView().render();
         enemies.add(enemy);
         gamePane.getChildren().add(enemy.getView().getNode());
     }
@@ -62,22 +63,19 @@ public class EnemyManager {
             double floor = gameWorld.getHeight() - enemy.getHeight();
             // Integrate gravity
             enemy.setyVelocity(
-                    enemy.getyVelocity()
-                            + gameWorld.getGravity() * enemy.getGravityMult() * dt);
+                    enemy.getyVelocity() + world.getGravity() * dt);
 
 
             double nextY = enemy.getyPosition() + enemy.getyVelocity() * dt;
             double nextX = enemy.getxPosition() + enemy.getxVelocity() * dt;
             // --- Y collisions ---
             if (nextY >= floor) {
-                double newYVelocity = enemy.getyVelocity() * enemy.getRestitution();
+                System.out.printf("Y Velocity: %f\nY Position: %f\n\n", enemy.getyVelocity(), enemy.getyPosition());
                 nextY = floor;
                 if (enemy.getyVelocity() >= 0) {
                     nextY = enemy.getyPosition();
-                    double newXVelocity = enemy.getxVelocity() * 0.99;
-                    enemy.setxVelocity(newXVelocity);
                 }
-                enemy.setyVelocity(-Math.abs(newYVelocity)); // bounce up
+                enemy.setyVelocity(-Math.abs(enemy.getyVelocity())); // bounce up
             } else if (nextY <= ceiling) {
                 double newYVelocity = Math.abs(enemy.getyVelocity() * enemy.getRestitution());
                 enemy.setyVelocity(newYVelocity); // bounce down
