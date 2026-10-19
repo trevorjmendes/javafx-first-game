@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-//TODO: Enemies start in top left corner for first frame FIX IT
 public class GameController {
     private SceneHandler sceneHandler;
     private GameState gameState;
@@ -97,6 +96,7 @@ public class GameController {
     }
     public void removePlayer() {
         gamePane.getChildren().remove(playerView.getNode());
+        player = null;
     }
 
     public void onSceneEnter() {
@@ -106,7 +106,7 @@ public class GameController {
         clicksLabel.setText("Clicks left: " + numClicks);
         scoreLabel.setText("Score: " + score);
 
-        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),2000);
+        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),300);
         waveManager = new WaveManager();
         enemyManager = new EnemyManager(gamePane, waveManager, gameWorld);
         inputManager = new InputManager();
@@ -119,7 +119,7 @@ public class GameController {
         });
 
         for (int i = 1; i < 3; i++) {
-            waveManager.createCircleWave(i, 1,0.65, 900, 50, 1);
+            waveManager.createCircleWave(i, 1,0.65, 50, 50, 1);
         }
         //waveManager.addToWave(0,1, 0.65,900, 75, 1);
         waveManager.nextWave();
@@ -157,6 +157,7 @@ public class GameController {
                 pausePane.setVisible(true);
             }
             case WIN -> {
+                removePlayer();
                 overlayLayer.setMouseTransparent(false);
                 gameLoop.stop();
                 winScoreLabel.setText("Score: " + score);
