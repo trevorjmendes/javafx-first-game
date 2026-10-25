@@ -10,7 +10,7 @@ public class Player extends GameObject {
     public Player() {
         super(0, 0, 0, 0, 80,  60, 30);
         gravityMult = 1;
-        speed = 50;
+        speed = 25;
         jumpSpeed = 500;
     }
     public void setGravityMult(double gravityMult) {this.gravityMult = gravityMult;}

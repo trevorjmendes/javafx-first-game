@@ -5,7 +5,6 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 //TODO: Make explode function
-//TODO: Make enemy gravity mult way less (move slower)
 
 public class EnemyManager {
     private ArrayList<Enemy> enemies;
@@ -64,8 +63,9 @@ public class EnemyManager {
             double ceiling = 0;
             double floor = gameWorld.getHeight() - enemy.getHeight();
             // Integrate gravity
+            double effectiveGravity = world.getGravity() * enemy.getGravityMult();
             enemy.setyVelocity(
-                    enemy.getyVelocity() + world.getGravity() * dt);
+                    enemy.getyVelocity() + effectiveGravity * dt);
 
 
             double nextY = enemy.getyPosition() + enemy.getyVelocity() * dt;

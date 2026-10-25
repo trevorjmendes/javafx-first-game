@@ -106,7 +106,7 @@ public class GameController {
         clicksLabel.setText("Clicks left: " + numClicks);
         scoreLabel.setText("Score: " + score);
 
-        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),300);
+        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),1200);
         waveManager = new WaveManager();
         enemyManager = new EnemyManager(gamePane, waveManager, gameWorld);
         inputManager = new InputManager();
@@ -118,8 +118,8 @@ public class GameController {
             onMiss();
         });
 
-        for (int i = 1; i < 3; i++) {
-            waveManager.createCircleWave(i, 1,0.65, 50, 50, 1);
+        for (int i = 1; i < 12; i++) {
+            waveManager.createCircleWave(i, 0.18,0.65, 50, 50, 1);
         }
         //waveManager.addToWave(0,1, 0.65,900, 75, 1);
         waveManager.nextWave();
