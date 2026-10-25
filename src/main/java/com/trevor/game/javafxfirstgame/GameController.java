@@ -175,10 +175,10 @@ public class GameController {
         }
     }
     public void onHit(Enemy enemy) {
-        score += Math.round(10 + 1000 / enemy.getWidth());
+        score = (int) (score + Math.round(10 + 1000 / enemy.getWidth()));
         scoreLabel.setText("Score: " + score);
         enemyManager.removeEnemy(enemy);
-        if (enemyManager.getEnemies().size() == 0) {
+        if (enemyManager.getEnemies().isEmpty()) {
             waveManager.removeWave();
             if (waveManager.nextWave()) {
                 enemyManager.spawnWave();
