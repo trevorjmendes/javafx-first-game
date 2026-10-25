@@ -4,7 +4,9 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-// TODO: FIX Y Velocity stuck around 10 when enemies on ground
+//TODO: Make explode function
+//TODO: Make enemy gravity mult way less (move slower)
+
 public class EnemyManager {
     private ArrayList<Enemy> enemies;
     private final Pane gamePane;
@@ -69,8 +71,8 @@ public class EnemyManager {
             double nextY = enemy.getyPosition() + enemy.getyVelocity() * dt;
             double nextX = enemy.getxPosition() + enemy.getxVelocity() * dt;
             // --- Y collisions ---
+            // enemy hits ground
             if (nextY >= floor) {
-                System.out.printf("Y Velocity: %f\nY Position: %f\n\n", enemy.getyVelocity(), enemy.getyPosition());
                 nextY = floor;
                 if (enemy.getyVelocity() >= 0) {
                     nextY = enemy.getyPosition();

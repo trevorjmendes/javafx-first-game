@@ -1,13 +1,14 @@
 package com.trevor.game.javafxfirstgame;
 
-//TODO: conserve jump speed
+//TODO: Add projectile shooter
+//TODO: Make jump energy conserve (like in jump king)
 public class Player extends GameObject {
     private double gravityMult;
     private double speed;
     private double jumpSpeed;
     private boolean onGround;
     public Player() {
-        super(0, 0, 0, 0, 80,  60, 180);
+        super(0, 0, 0, 0, 80,  60, 30);
         gravityMult = 1;
         speed = 50;
         jumpSpeed = 500;
