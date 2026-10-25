@@ -47,22 +47,6 @@ build/
 .DS_Store
 
 ### Tmendes-made files ###
-src/main/java/com/trevor/game/javafxfirstgame/Enemy.java
-src/main/java/com/trevor/game/javafxfirstgame/EnemyData.java
-src/main/java/com/trevor/game/javafxfirstgame/EnemyManager.java
-src/main/java/com/trevor/game/javafxfirstgame/EnemyType.java
-src/main/java/com/trevor/game/javafxfirstgame/EnemyView.java
-src/main/java/com/trevor/game/javafxfirstgame/GameController.java
-src/main/java/com/trevor/game/javafxfirstgame/GameObject.java
-src/main/java/com/trevor/game/javafxfirstgame/GameObjectView.java
-src/main/java/com/trevor/game/javafxfirstgame/GameState.java
-src/main/java/com/trevor/game/javafxfirstgame/GameWorld.java
-src/main/java/com/trevor/game/javafxfirstgame/InputManager.java
-src/main/java/com/trevor/game/javafxfirstgame/MenuController.java
-src/main/java/com/trevor/game/javafxfirstgame/Player.java
-src/main/java/com/trevor/game/javafxfirstgame/PlayerView.java
-src/main/java/com/trevor/game/javafxfirstgame/SceneHandler.java
-src/main/java/com/trevor/game/javafxfirstgame/WaveManager.java
 src/main/planning
 
 
