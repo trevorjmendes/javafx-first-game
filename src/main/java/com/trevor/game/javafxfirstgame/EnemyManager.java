@@ -5,6 +5,10 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 //TODO: Make explode function
+//TODO: Fix enemies sinking thru floor (stop gravity making enemies accelerate thru floor)
+
+// Made ground impact penetration angularly consistent
+// Made gravity always apply to enemies/player
 
 public class EnemyManager {
     private ArrayList<Enemy> enemies;
@@ -63,21 +67,22 @@ public class EnemyManager {
             double ceiling = 0;
             double floor = gameWorld.getHeight() - enemy.getHeight();
             // Integrate gravity
-            double effectiveGravity = world.getGravity() * enemy.getGravityMult();
+            double gravity = world.getGravity() * enemy.getGravityMult() * dt;
             enemy.setyVelocity(
-                    enemy.getyVelocity() + effectiveGravity * dt);
+                    enemy.getyVelocity() + gravity);
 
 
+            // position equals velocity times change in time
             double nextY = enemy.getyPosition() + enemy.getyVelocity() * dt;
             double nextX = enemy.getxPosition() + enemy.getxVelocity() * dt;
             // --- Y collisions ---
             // enemy hits ground
             if (nextY >= floor) {
-                nextY = floor;
-                if (enemy.getyVelocity() >= 0) {
-                    nextY = enemy.getyPosition();
-                }
-                enemy.setyVelocity(-Math.abs(enemy.getyVelocity())); // bounce up
+                double newYVelocity = enemy.getyVelocity() * (1 - enemy.getRestitution());
+                double newXVelocity = enemy.getxVelocity() * (1 - enemy.getRestitution());
+
+                enemy.setyVelocity(newYVelocity); // finalizing velocities
+                enemy.setxVelocity(newXVelocity);
             } else if (nextY <= ceiling) {
                 double newYVelocity = Math.abs(enemy.getyVelocity() * enemy.getRestitution());
                 enemy.setyVelocity(newYVelocity); // bounce down
@@ -101,9 +106,6 @@ public class EnemyManager {
             enemy.setyPosition(nextY);
 
             enemy.getView().render();
-            // Check to see if its on the ground
-            enemy.onGround(world);
-
         }
     }
 

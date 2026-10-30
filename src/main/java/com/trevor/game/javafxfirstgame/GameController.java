@@ -119,7 +119,7 @@ public class GameController {
         });
 
         for (int i = 1; i < 12; i++) {
-            waveManager.createCircleWave(i, 0.18,0.65, 50, 50, 1);
+            waveManager.createCircleWave(i, 0.18,0.3, 50, 50, 1);
         }
         //waveManager.addToWave(0,1, 0.65,900, 75, 1);
         waveManager.nextWave();
