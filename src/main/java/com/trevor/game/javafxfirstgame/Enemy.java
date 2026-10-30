@@ -33,7 +33,7 @@ public class Enemy extends GameObject {
 
     }
     public boolean onGround(GameWorld world) {
-        return getxPosition() + getHeight() >= world.getHeight();
+        return getyPosition() + getHeight() >= world.getHeight();
     }
     public EnemyType getTYPE() {
         return TYPE;
