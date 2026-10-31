@@ -5,8 +5,9 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 //TODO: Make explode function
-//TODO: Fix enemies sinking thru floor (stop gravity making enemies accelerate thru floor)
+//TODO: Make enemies able to pass through ceiling no problem
 
+// Fixed enemies sinking thru floor (stopped gravity making enemies accelerate thru floor)
 // Made ground impact penetration angularly consistent
 // Made gravity always apply to enemies/player
 
@@ -28,7 +29,7 @@ public class EnemyManager {
 
     public Enemy createEnemy(EnemyData data) {
         double x = Math.random() * (world.getWidth() - data.getWidth());
-        double y = 0;
+        double y = -(Math.random() * 100 + 50);
 
         double xVelocity = data.getStartingXVelocity();
         double yVelocity = data.getStartingYVelocity();
@@ -91,11 +92,12 @@ public class EnemyManager {
 
                 enemy.setyVelocity(newYVelocity); // finalizing velocities
                 enemy.setxVelocity(newXVelocity);
-            } else if (nextY <= ceiling) {
-                double newYVelocity = Math.abs(enemy.getyVelocity() * enemy.getRestitution());
-                enemy.setyVelocity(newYVelocity); // bounce down
-                nextY = ceiling;
             }
+//            } else if (nextY <= ceiling) {
+//                double newYVelocity = Math.abs(enemy.getyVelocity() * enemy.getRestitution());
+//                enemy.setyVelocity(newYVelocity); // bounce down
+//                nextY = ceiling;
+//            }
 
 
             // --- X collisions ---
