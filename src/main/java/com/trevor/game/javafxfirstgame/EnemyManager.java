@@ -28,9 +28,10 @@ public class EnemyManager {
 
     public Enemy createEnemy(EnemyData data) {
         double x = Math.random() * (world.getWidth() - data.getWidth());
-        double y = Math.random() * (world.getHeight() / 10) + data.getWidth();
-        double xVelocity = data.getStartingXVelocity() * (Math.random() < 0.5 ? -1 : 1);
-        double yVelocity = 0;
+        double y = 0;
+
+        double xVelocity = data.getStartingXVelocity();
+        double yVelocity = data.getStartingYVelocity();
         return new Enemy(
                 x,
                 y,
@@ -68,6 +69,13 @@ public class EnemyManager {
             double floor = gameWorld.getHeight() - enemy.getHeight();
             // Integrate gravity
             double gravity = world.getGravity() * enemy.getGravityMult() * dt;
+            if (enemy.onGround(world)) {
+                double minStopSpeed = 10;
+                if (enemy.getyVelocity() < minStopSpeed) {
+                    gravity = 0;
+                }
+            }
+
             enemy.setyVelocity(
                     enemy.getyVelocity() + gravity);
 
