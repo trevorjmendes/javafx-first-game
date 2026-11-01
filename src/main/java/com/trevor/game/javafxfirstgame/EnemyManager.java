@@ -5,8 +5,9 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 //TODO: Make explode function
-//TODO: Make enemies able to pass through ceiling no problem
+//TODO: Make bigger enemies fall faster
 
+// Made enemies able to pass through ceiling no problem
 // Fixed enemies sinking thru floor (stopped gravity making enemies accelerate thru floor)
 // Made ground impact penetration angularly consistent
 // Made gravity always apply to enemies/player
@@ -29,7 +30,7 @@ public class EnemyManager {
 
     public Enemy createEnemy(EnemyData data) {
         double x = Math.random() * (world.getWidth() - data.getWidth());
-        double y = -(Math.random() * 100 + 50);
+        double y = -(Math.random() * 100 + data.getHeight());
 
         double xVelocity = data.getStartingXVelocity();
         double yVelocity = data.getStartingYVelocity();
@@ -70,15 +71,11 @@ public class EnemyManager {
             double floor = gameWorld.getHeight() - enemy.getHeight();
             // Integrate gravity
             double gravity = world.getGravity() * enemy.getGravityMult() * dt;
-            if (enemy.onGround(world)) {
-                double minStopSpeed = 10;
-                if (enemy.getyVelocity() < minStopSpeed) {
-                    gravity = 0;
-                }
+            if (!enemy.onGround(world)) {
+                enemy.setyVelocity(
+                        enemy.getyVelocity() + gravity);
             }
 
-            enemy.setyVelocity(
-                    enemy.getyVelocity() + gravity);
 
 
             // position equals velocity times change in time
