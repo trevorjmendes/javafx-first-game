@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class WaveManager {
-    private final LinkedList<ArrayList<EnemyData>> waveQueue;
+    private LinkedList<ArrayList<EnemyData>> waveQueue;
 
     private ArrayList<EnemyData> currentWave;
 
@@ -44,11 +44,13 @@ public class WaveManager {
                           double size,
                           double mass) {
         EnemyData data = new EnemyData(EnemyType.CIRCLE, gravityMult, restitution, startingVelocity, mass, size, size);
-        if (waveQueue.isEmpty() && index == 0) {
-            waveQueue.add(new ArrayList<>());
-        }
         waveQueue.get(index).add(data);
     }
+
+    public void createEmptyWave() {
+        waveQueue.add(new ArrayList<>());
+    }
+
     public ArrayList<EnemyData> createCircleWave(int count,
                                                  double gravityMult,
                                                  double restitution,
@@ -59,11 +61,7 @@ public class WaveManager {
 
         for (int i = 0; i < count; i++) {
             size = (Math.random() * 2 - 1) * size*0.2 + size;
-            double randXVelocity = startingVelocity[0] * (Math.random() < 0.5 ? -1 : 1);
-            double randYVelocity = startingVelocity[1];
-            double[] randStartingVelocity = {randXVelocity, randYVelocity};
-
-            EnemyData data = new EnemyData(EnemyType.CIRCLE, gravityMult, restitution, randStartingVelocity, mass, size, size);
+            EnemyData data = new EnemyData(EnemyType.CIRCLE, gravityMult, restitution, startingVelocity, mass, size, size);
             wave.add(data);
 
         }
