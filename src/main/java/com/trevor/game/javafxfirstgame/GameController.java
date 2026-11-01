@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+//TODO: Make enemies all have random starting velocities
+
 public class GameController {
     private SceneHandler sceneHandler;
     private GameState gameState;
@@ -117,9 +119,14 @@ public class GameController {
         gamePane.setOnMouseClicked(e -> {
             onMiss();
         });
-        for (int i = 1; i < 12; i++) {
-            double[] startingVelocity = {100, 100};
-            waveManager.createCircleWave(i, 0.18,0.3, startingVelocity, 50, 1);
+        for (int i = 0; i < 10; i++) {
+            waveManager.createEmptyWave();
+            for (int j = 0; j < i+1; j++) {
+                double randXVelocity = Math.random() * 200 - 100;
+                double randYVelocity = Math.random() * 200 - 100;
+                double[] randStartVelocity = {randXVelocity, randYVelocity};
+                waveManager.addToWave(i, 0.18, 0.3, randStartVelocity, 50, 1);
+            }
         }
         waveManager.nextWave();
         enemyManager.spawnWave();
