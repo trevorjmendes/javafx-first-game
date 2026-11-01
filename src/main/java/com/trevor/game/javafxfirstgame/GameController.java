@@ -108,7 +108,7 @@ public class GameController {
         clicksLabel.setText("Clicks left: " + numClicks);
         scoreLabel.setText("Score: " + score);
 
-        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),1200);
+        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),300);
         waveManager = new WaveManager();
         enemyManager = new EnemyManager(gamePane, waveManager, gameWorld);
         inputManager = new InputManager();
@@ -122,10 +122,10 @@ public class GameController {
         for (int i = 0; i < 10; i++) {
             waveManager.createEmptyWave();
             for (int j = 0; j < i+1; j++) {
-                double randXVelocity = Math.random() * 200 - 100;
-                double randYVelocity = Math.random() * 200 - 100;
+                double randXVelocity = (Math.random() * 200) - 100; // between -100 and 100
+                double randYVelocity = Math.random() * 100;
                 double[] randStartVelocity = {randXVelocity, randYVelocity};
-                waveManager.addToWave(i, 0.18, 0.3, randStartVelocity, 50, 1);
+                waveManager.addToWave(i, 1, 0.3, randStartVelocity, 50, 1);
             }
         }
         waveManager.nextWave();
