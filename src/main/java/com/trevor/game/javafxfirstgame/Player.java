@@ -1,7 +1,9 @@
 package com.trevor.game.javafxfirstgame;
 
 //TODO: Add projectile shooter
-//TODO: Make jump energy conserve (like in jump king)
+//TODO: Make velocity loss mathematically correct
+
+//Made jump energy conserve (like in jump king)
 public class Player extends GameObject {
     private double gravityMult;
     private double speed;
@@ -10,18 +12,20 @@ public class Player extends GameObject {
     public Player() {
         super(0, 0, 0, 0, 80,  60, 30);
         gravityMult = 1;
-        speed = 25;
-        jumpSpeed = 500;
+        speed = 15;
+        jumpSpeed = 150;
     }
     public void setGravityMult(double gravityMult) {this.gravityMult = gravityMult;}
     public void update(double dt, InputManager inputManager, GameWorld world) {
         // input
 
-        if (inputManager.isLeftPressed()) {
-            setxVelocity(getxVelocity() - speed);
-        }
-        if (inputManager.isRightPressed()) {
-            setxVelocity(getxVelocity() + speed);
+        if (onGround) {
+            if (inputManager.isLeftPressed()) {
+                setxVelocity(getxVelocity() - speed);
+            }
+            if (inputManager.isRightPressed()) {
+                setxVelocity(getxVelocity() + speed);
+            }
         }
         if (inputManager.isJumpPressed() && onGround) {
             setyVelocity(-jumpSpeed);
@@ -29,10 +33,6 @@ public class Player extends GameObject {
         double newXVelocity;
         // Integrate gravity
         setyVelocity(getyVelocity() + world.getGravity() * gravityMult * dt);
-        if (!onGround) {
-            double newAirVelocity = getxVelocity() * 0.92;
-            setxVelocity(newAirVelocity);
-        }
 
         double nextY = getyPosition() + getyVelocity() * dt;
         double nextX = getxPosition() + getxVelocity() * dt;
