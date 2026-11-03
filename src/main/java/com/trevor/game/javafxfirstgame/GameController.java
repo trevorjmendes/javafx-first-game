@@ -82,8 +82,8 @@ public class GameController {
                     player.update(DELTA_TIME, inputManager, gameWorld);
                     accumulator -= DELTA_TIME;
                 }
+                enemyManager.resetOOBEnemies();
                 playerView.render();
-
             }
         };
     }
@@ -108,7 +108,7 @@ public class GameController {
         clicksLabel.setText("Clicks left: " + numClicks);
         scoreLabel.setText("Score: " + score);
 
-        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),300);
+        gameWorld = new GameWorld(gamePane.getWidth(), gamePane.getHeight(),36);
         waveManager = new WaveManager();
         enemyManager = new EnemyManager(gamePane, waveManager, gameWorld);
         inputManager = new InputManager();
@@ -121,11 +121,11 @@ public class GameController {
         });
         for (int i = 0; i < 10; i++) {
             waveManager.createEmptyWave();
-            for (int j = 0; j < i+1; j++) {
+            for (int j = 0; j < i + 1; j++) {
                 double randXVelocity = (Math.random() * 200) - 100; // between -100 and 100
-                double randYVelocity = Math.random() * 100;
+                double randYVelocity = Math.random() * 10;
                 double[] randStartVelocity = {randXVelocity, randYVelocity};
-                waveManager.addToWave(i, 1, 0.3, randStartVelocity, 50, 1);
+                waveManager.addToWave(i, 1, 0.2, randStartVelocity, 30, 1);
             }
         }
         waveManager.nextWave();
