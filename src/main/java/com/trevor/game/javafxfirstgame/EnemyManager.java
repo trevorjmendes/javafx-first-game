@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 //TODO: Make explode function
 //TODO: Make bigger enemies fall faster
+//TODO: Incorporate mass into physics (heavier = faster fall)
+//TODO: Make ballistic wall penetrations (x axis)
 
 // Made enemies able to pass through ceiling no problem
 // Fixed enemies sinking thru floor (stopped gravity making enemies accelerate thru floor)
@@ -90,22 +92,19 @@ public class EnemyManager {
                 enemy.setyVelocity(newYVelocity); // finalizing velocities
                 enemy.setxVelocity(newXVelocity);
             }
-//            } else if (nextY <= ceiling) {
-//                double newYVelocity = Math.abs(enemy.getyVelocity() * enemy.getRestitution());
-//                enemy.setyVelocity(newYVelocity); // bounce down
-//                nextY = ceiling;
-//            }
-
 
             // --- X collisions ---
-            if (nextX >= right) {
-                double newXVelocity = -Math.abs(enemy.getxVelocity() * enemy.getRestitution());
-                nextX = right;
-                enemy.setxVelocity(newXVelocity);
-            } else if (nextX <= left) {
-                double newXVelocity = Math.abs(enemy.getxVelocity() * enemy.getRestitution());
-                nextX = left;
-                enemy.setxVelocity(newXVelocity);
+            if (
+                    nextX + enemy.getWidth() > world.getWidth() ||
+                    nextX < 0
+            ) {
+                if (enemy.getyPosition() + enemy.getHeight() > 0) {
+                    double newYVelocity = enemy.getyVelocity() * (1 - enemy.getRestitution());
+                    double newXVelocity = enemy.getxVelocity() * (1 - enemy.getRestitution());
+
+                    enemy.setyVelocity(newYVelocity); // finalizing velocities
+                    enemy.setxVelocity(newXVelocity);
+                }
             }
 
             // finalizing enemy position
@@ -116,6 +115,24 @@ public class EnemyManager {
         }
     }
 
+    //  move the misbehaving enemy to where you want it to go
+    public void resetEnemyPosition(Enemy enemy) {
+        double x = Math.random() * (world.getWidth() - enemy.getWidth());
+        double y = -(Math.random() * 100 + enemy.getHeight());
+        double xVelocity = (Math.random() * 200) - 100; // between -100 and 100
+        double yVelocity = Math.random() * 10;
+        enemy.setxPosition(x);
+        enemy.setyPosition(y);
+        enemy.setxVelocity(xVelocity);
+        enemy.setyVelocity(yVelocity);
+    }
+    public void resetOOBEnemies() {
+        for (Enemy enemy : enemies) {
+            if (enemy.isOutOfXBounds(world)) {
+                resetEnemyPosition(enemy);
+            }
+        }
+    }
     public void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
         gamePane.getChildren().remove(enemy.getView().getNode());
