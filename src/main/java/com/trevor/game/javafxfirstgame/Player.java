@@ -2,6 +2,7 @@ package com.trevor.game.javafxfirstgame;
 
 //TODO: Add projectile shooter
 //TODO: Make velocity loss mathematically correct
+//TODO: Make kinetic friction coefficient field
 
 //Made jump energy conserve (like in jump king)
 public class Player extends GameObject {
@@ -11,19 +12,20 @@ public class Player extends GameObject {
     private boolean onGround;
     public Player() {
         super(0, 0, 0, 0, 80,  60, 30);
-        gravityMult = 1;
-        speed = 15;
-        jumpSpeed = 150;
+        gravityMult = 8;
+        speed = 8;
+        jumpSpeed = 75;
     }
     public void setGravityMult(double gravityMult) {this.gravityMult = gravityMult;}
     public void update(double dt, InputManager inputManager, GameWorld world) {
         // input
-
-        if (onGround) {
-            if (inputManager.isLeftPressed()) {
+        if (inputManager.isLeftPressed()) {
+            if (onGround) {
                 setxVelocity(getxVelocity() - speed);
             }
-            if (inputManager.isRightPressed()) {
+        }
+        if (inputManager.isRightPressed()) {
+            if (onGround) {
                 setxVelocity(getxVelocity() + speed);
             }
         }
