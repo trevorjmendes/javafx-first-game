@@ -8,7 +8,6 @@ public class Enemy extends GameObject {
     private double gravityMult;
     private double restitution;
 
-
     public Enemy(double xPosition,
                  double yPosition,
                  double xVelocity,
@@ -30,7 +29,15 @@ public class Enemy extends GameObject {
         this.restitution = restitution;
         this.TYPE = type;
         this.view = new EnemyView(this);
-
+    }
+    public boolean isOutOfXBounds(GameWorld world) {
+        if (
+                getxPosition() + getWidth() < 0 ||
+                getxPosition() > world.getWidth()
+        ) {
+            return true;
+        }
+        return false;
     }
     public boolean onGround(GameWorld world) {
         return getyPosition() + getHeight() >= world.getHeight();
