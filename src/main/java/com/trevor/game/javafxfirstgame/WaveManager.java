@@ -3,6 +3,7 @@ package com.trevor.game.javafxfirstgame;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
 public class WaveManager {
     private LinkedList<ArrayList<EnemyData>> waveQueue;
 
@@ -25,6 +26,9 @@ public class WaveManager {
     public boolean isEmpty() {
         return waveQueue.isEmpty();
     }
+    public int getWaveQSize() {
+        return waveQueue.size();
+    }
 
     public boolean nextWave() {
         if (waveQueue.isEmpty()) {
@@ -44,7 +48,13 @@ public class WaveManager {
                           double size,
                           double mass) {
         EnemyData data = new EnemyData(EnemyType.CIRCLE, gravityMult, restitution, startingVelocity, mass, size, size);
-        waveQueue.get(index).add(data);
+        // if the waveQ is empty
+        if (isEmpty()) {
+            createEmptyWave();
+        }
+        if (index < waveQueue.size()) {
+            waveQueue.get(index).add(data);
+        }
     }
 
     public void createEmptyWave() {
@@ -61,7 +71,13 @@ public class WaveManager {
 
         for (int i = 0; i < count; i++) {
             size = (Math.random() * 2 - 1) * size*0.2 + size;
-            EnemyData data = new EnemyData(EnemyType.CIRCLE, gravityMult, restitution, startingVelocity, mass, size, size);
+            EnemyData data = new EnemyData(
+                    EnemyType.CIRCLE,
+                    gravityMult, restitution,
+                    startingVelocity,
+                    mass,
+                    size,
+                    size);
             wave.add(data);
 
         }
